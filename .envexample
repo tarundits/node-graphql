@@ -1,0 +1,4 @@
+PORT={Port}
+DB_CONN_STRING={MONGO URL}
+JWT_SECRET={Random String}
+NODE_ENV={Environment}
