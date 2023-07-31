@@ -25,11 +25,10 @@ const userTypeDefs = gql`
 
   # Mutation
   type Mutation {
-    create(first_name: String, last_name: String, age: Int, email: String, password: String): User
+    create(first_name: String, last_name: String, age: Int, email: String, password: String): AuthPayload
     update(id: ID, first_name: String, last_name: String, age: Int, email: String): User
     delete(id: ID): User
     login(email: String!, password: String!): AuthPayload
-    register(first_name: String!, last_name: String!, email: String!, password: String!): AuthPayload
   }
 `;
 

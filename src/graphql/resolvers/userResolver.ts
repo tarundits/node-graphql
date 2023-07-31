@@ -27,6 +27,12 @@ const userResolver = {
 		create: async (parent: any, args: any) => {
 		  const { first_name, last_name, age, email, password } = args;
 
+		  const existingUser = await User.findOne({ email });
+
+		  if (existingUser) {
+			throw new Error("User with this email already exists.");
+		  }
+
 		  // Hash and encrypt the password before saving
 		  const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -39,7 +45,9 @@ const userResolver = {
 		  });
 
 		  await newUser.save();
-		  return newUser;
+		  
+		  const token = generateToken(newUser);
+          return { token, user: newUser };
 		},
 
 		update: async (parent: any, args: any) => {
@@ -60,8 +68,6 @@ const userResolver = {
 		login: async (parent: any, args: any) => {
 			const { email, password } = args;
 			const user = await User.findOne({ email });
-
-			console.log(user);
 	  
 			if (!user) {
 			  throw new Error("User not found.");
@@ -74,7 +80,6 @@ const userResolver = {
 			}
 	  
 			const token = generateToken(user);
-			console.log(token);
 			return { token, user };
 		},
 	},

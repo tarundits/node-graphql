@@ -48,12 +48,21 @@ query getUsers {
 
 ```graphql
 mutation createUser($first_name: String, $last_name: String, $age: Int, $email: String, $password: String) {
-  create(first_name: $first_name, last_name: $last_name, age: $age, email: $email, password: $password) {
-    id
-    age
-    first_name
-    last_name,
-    email
+  create(
+      first_name: $first_name, 
+      last_name: $last_name, 
+      age: $age, 
+      email: $email, 
+      password: $password
+    ) {
+        token
+        user {
+            id
+            first_name
+            last_name
+            email
+            age
+        }
   }
 }
 ```
