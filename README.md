@@ -43,3 +43,44 @@ query getUsers {
     }
 }
 ```
+
+### Create User
+
+```graphql
+mutation createUser($first_name: String, $last_name: String, $age: Int, $email: String, $password: String) {
+  create(first_name: $first_name, last_name: $last_name, age: $age, email: $email, password: $password) {
+    id
+    age
+    first_name
+    last_name,
+    email
+  }
+}
+```
+
+```json
+{
+  "first_name": "Test",
+  "last_name": "User",
+  "age": 37,
+  "email": "test.user@ditstek.com",
+  "password": "12345678"
+}
+```
+
+### Get Single User
+
+```graphql
+query getSingleUser($userId: ID) {
+  user(id: $userId) {
+    first_name
+    last_name
+  }
+}
+```
+
+```json
+{
+  "userId": "DNHVrtZVaUMlJ0_n5SA7g"
+}
+```
