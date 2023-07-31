@@ -23,7 +23,7 @@ mutation loginUser($email: String!, $password: String!) {
 
 ```json
 {
-    "email": "tarun.chopra@ditstek.com",
+    "email": "test@testgmail.com",
     "password": "12345678"
 }
 ```
