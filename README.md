@@ -84,3 +84,39 @@ query getSingleUser($userId: ID) {
   "userId": "DNHVrtZVaUMlJ0_n5SA7g"
 }
 ```
+
+### Update User
+
+```graphql
+mutation updateUser($first_name: String, $last_name: String, $age: Int, $email: String, $updateId: ID) {
+  update(first_name: $first_name, last_name: $last_name, age: $age, email: $email, id: $updateId) {
+    id
+    first_name
+    last_name
+    email
+    age
+  }
+}
+```
+
+```json
+{
+  "age": 23,
+  "updateId": "DNHVrtZVaUMlJ0_n5SA7g"
+}
+```
+
+### Delete User
+```graphql
+mutation deleteStudent($deleteId: ID) {
+    delete(id: $deleteId) {
+        id
+    }
+}
+```
+
+```json
+{
+    "deleteId": "DNHVrtZVaUMlJ0_n5SA7g"
+}
+```
