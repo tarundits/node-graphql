@@ -20,9 +20,7 @@ const userResolver = {
 	    hello: () => "GraphQL is Awesome",
 		welcome: (parent: any, args: any) => `Hello ${args.name}`,
 		users: async () => {
-			console.log("FFFF") 
 			let users =  await User.find({}) 
-			console.log(users , "UUUUUUUUUUUUU")
 			return users
 		},
         user: async (parent: any, args: any) => await User.findById(args.id),
