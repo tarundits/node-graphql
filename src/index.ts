@@ -33,13 +33,15 @@ const server: any = new ApolloServer<MyContext>({
 // Use a self-executing async function to await the startStandaloneServer
 (async () => {
     const { url } = await startStandaloneServer(server, {
-        /*
+        
         context: async ({ req, res }) => {
             const token: any = req.headers.authorization || '';
+            console.log('Token', token);
             const user = await getUser(token);
+            console.log('User', user);
             return { user };
         },
-        */
+        
     });
 
   console.log(`🚀 Server listening at: ${url}`);

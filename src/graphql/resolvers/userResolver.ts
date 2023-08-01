@@ -19,41 +19,46 @@ const userResolver = {
 	Query: {
 	    hello: () => "GraphQL is Awesome",
 		welcome: (parent: any, args: any) => `Hello ${args.name}`,
-		users: async () => await User.find({}),
+		users: async () => {
+			console.log("FFFF") 
+			let users =  await User.find({}) 
+			console.log(users , "UUUUUUUUUUUUU")
+			return users
+		},
         user: async (parent: any, args: any) => await User.findById(args.id),
 	},
 
 	Mutation: {
 		create: async (parent: any, args: any) => {
-		  const { first_name, last_name, age, email, password } = args;
+			const { first_name, last_name, age, email, password } = args;
 
-		  const existingUser = await User.findOne({ email });
+			const existingUser = await User.findOne({ email });
 
-		  if (existingUser) {
-			throw new Error("User with this email already exists.");
-		  }
+			if (existingUser) {
+				throw new Error("User with this email already exists.");
+			}
 
-		  // Hash and encrypt the password before saving
-		  const hashedPassword = await bcrypt.hash(password, 10);
+			// Hash and encrypt the password before saving
+			const hashedPassword = await bcrypt.hash(password, 10);
 
-		  const newUser = new User({
-			first_name,
-			last_name,
-			age,
-			email,
-			password: hashedPassword,
-		  });
+			const newUser = new User({
+				first_name,
+				last_name,
+				age,
+				email,
+				password: hashedPassword,
+			});
 
-		  await newUser.save();
-		  
-		  const token = generateToken(newUser);
-          return { token, user: newUser };
+			await newUser.save();
+
+			const token = generateToken(newUser);
+			return { token, user: newUser };
 		},
 
 		update: async (parent: any, args: any) => {
-		  const { id, first_name, last_name, age, email } = args;
-		  const result = await User.findByIdAndUpdate(id, { first_name, last_name, age, email }, { new: true });
-		  return result;
+			const { id, first_name, last_name, age, email } = args;
+			const result = await User.findByIdAndUpdate(id, { first_name, last_name, age, email }, { new: true });
+			return result;
 		},
 
 		delete: async (parent: any, args: any) => {
